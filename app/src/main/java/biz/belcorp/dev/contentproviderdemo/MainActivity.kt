@@ -15,9 +15,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
+        // QAS
         const val CP_ESIKA = "biz.belcorp.consultoras.esika.develop.provider.data"
         const val CP_LBEL = "biz.belcorp.consultoras.lbel.develop.provider.data"
 
+        // BETA PRODUCTION
         //const val CP_ESIKA = "biz.belcorp.consultoras.esika.stage.provider.data"
         //const val CP_LBEL = "biz.belcorp.consultoras.lbel.stage.provider.data"
 
