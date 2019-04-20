@@ -13,63 +13,64 @@ import android.support.v4.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
-    private var PERMISSIONS_ESIKA = arrayOf(
-        "biz.belcorp.consultoras.esika.dev.provider.data.READ_DATABASE"
-    )
+    companion object {
 
-    private var PERMISSIONS_LBEL = arrayOf(
-        "biz.belcorp.consultoras.lbel.dev.provider.data.READ_DATABASE"
-    )
+        const val CP_ESIKA = "biz.belcorp.consultoras.esika.develop.provider.data"
+        const val CP_LBEL = "biz.belcorp.consultoras.lbel.develop.provider.data"
+
+        //const val CP_ESIKA = "biz.belcorp.consultoras.esika.stage.provider.data"
+        //const val CP_LBEL = "biz.belcorp.consultoras.lbel.stage.provider.data"
+
+        const val PERMISSION_ESIKA = "$CP_ESIKA.READ_DATABASE"
+        const val PERMISSION_LBEL = "$CP_LBEL.READ_DATABASE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         btnUserEsika.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this,
-                    "biz.belcorp.consultoras.esika.dev.provider.data.READ_DATABASE") !=
+            if (ContextCompat.checkSelfPermission(this, PERMISSION_ESIKA) !=
                 PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS_ESIKA, 1)
+                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_ESIKA), 1)
             } else {
-                val contentUri = Uri.parse("content://biz.belcorp.consultoras.esika.dev.provider.data/User")
+                val contentUri = Uri.parse("content://$CP_ESIKA/User")
                 contentUser(contentUri)
             }
         }
 
         btnClientsEsika.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this,
-                    "biz.belcorp.consultoras.esika.dev.provider.data.READ_DATABASE") !=
+            if (ContextCompat.checkSelfPermission(this, PERMISSION_ESIKA) !=
                 PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS_ESIKA, 1)
+                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_ESIKA), 1)
             } else {
-                val contentUri = Uri.parse("content://biz.belcorp.consultoras.esika.dev.provider.data/Client")
+                val contentUri = Uri.parse("content://$CP_ESIKA/Client")
                 contentClients(contentUri)
             }
         }
 
         btnUserLBel.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this,
-                    "biz.belcorp.consultoras.lbel.dev.provider.data.READ_DATABASE") !=
+            if (ContextCompat.checkSelfPermission(this, PERMISSION_LBEL) !=
                 PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS_LBEL, 1)
+                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_LBEL), 1)
             } else {
-                val contentUri = Uri.parse("content://biz.belcorp.consultoras.lbel.dev.provider.data/User")
+                val contentUri = Uri.parse("content://$CP_LBEL/User")
                 contentClients(contentUri)
             }
         }
 
         btnClientsLBel.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this,
-                    "biz.belcorp.consultoras.esika.dev.provider.data.READ_DATABASE") !=
+            if (ContextCompat.checkSelfPermission(this, PERMISSION_LBEL) !=
                 PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, PERMISSIONS_LBEL, 1)
+                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_LBEL), 1)
             } else {
-                val contentUri = Uri.parse("content://biz.belcorp.consultoras.lbel.dev.provider.data/Client")
+                val contentUri = Uri.parse("content://$CP_LBEL/Client")
                 contentUser(contentUri)
             }
         }
     }
+
+    /**  functions  **/
 
     private fun showToastMessage (msg : String) {
         Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                     val column3Value = cursor.getString(column3Index)
 
                     showToastMessage(
-                        "Code: $column4Value,\n Name: $column5Value, \ncCampaing: $column3Value")
+                        "Code: $column4Value,\nName: $column5Value, \nCampaing: $column3Value")
 
                 } while (cursor.moveToNext())
             }
